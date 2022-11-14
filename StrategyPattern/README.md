@@ -53,11 +53,11 @@ classDiagram
         +useWeapon()
     }
 
-    Character<|--King : Inheritance
-    Character<|--Queen : Inheritance
-    Character<|--Knight : Inheritance
-    Character<|--Troll : Inheritance
-    Character--*IWeaponBehaviour : Composition
+    Character<|--King : Implements
+    Character<|--Queen : Implements
+    Character<|--Knight : Implements
+    Character<|--Troll : Implements
+    Character--*IWeaponBehaviour : Has-A
     IWeaponBehaviour <|..BowAndArrowBehaviour : Realisation
     IWeaponBehaviour <|..AxeBehaviour : Realisation
     IWeaponBehaviour <|..SwordBehaviour : Realisation

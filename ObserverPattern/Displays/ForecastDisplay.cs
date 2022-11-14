@@ -4,8 +4,8 @@ namespace WeatherStation.Displays;
 
 public class ForecastDisplay : IObserver, IDisplayElement
 {
-    private float _temperature;
-    private float _humidity;
+    private float _currentPressure = 29.92f;
+    private float _lastPressure;
     private WeatherData _weatherData;
 
     public ForecastDisplay(WeatherData weatherData)
@@ -15,25 +15,24 @@ public class ForecastDisplay : IObserver, IDisplayElement
     }
     public void display()
     {
-
-        switch (_humidity)
+        Write("Forecast: ");
+        if (_currentPressure > _lastPressure)
         {
-            case <= 65.0f:
-                WriteLine("Forecast: Improving weather on the way!");
-                break;
-            case >= 90f:
-                WriteLine("Forecast: More of the same");
-                break;
-            default:
-                WriteLine("Watch of for cooler, rainy weather");
-                break;
+            WriteLine("Improving weather on the way!");
+            return;
         }
+        if (_currentPressure < _lastPressure)
+        {
+            WriteLine("Watch out for cooler, rainy weather");
+            return;
+        }
+        WriteLine("More of the same");
     }
 
-    public void update(float temp, float humidity, float pressure)
+    public void update()
     {
-        _temperature = temp;
-        _humidity = humidity;
+        _lastPressure = _currentPressure;
+        _currentPressure = _weatherData.getPressure();
         display();
     }
 }

@@ -15,12 +15,11 @@ public class HeatIndexDisplay : IObserver, IDisplayElement
         _weatherData.registerObserver(this);
     }
 
-    public void update(float temp, float humidity, float pressure)
-
+    public void update()
     {
-        _temperature = temp;
-        _humidity = humidity;
-        _heatIndex = computeHeatIndex(temp, humidity);
+        _temperature = _weatherData.getTemperature();
+        _humidity = _weatherData.getHumidity();
+        _heatIndex = computeHeatIndex(_temperature, _humidity);
         display();
     }
     public void display()

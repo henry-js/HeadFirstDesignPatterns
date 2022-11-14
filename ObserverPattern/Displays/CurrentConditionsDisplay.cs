@@ -14,11 +14,11 @@ public class CurrentConditionsDisplay : IObserver, IDisplayElement
         _weatherData = weatherData;
         _weatherData.registerObserver(this);
     }
-    public void update(float temp, float humidity, float pressure)
+    public void update()
 
     {
-        _temperature = temp;
-        _humidity = humidity;
+        _temperature = _weatherData.getTemperature();
+        _humidity = _weatherData.getHumidity();
         display();
     }
     public void display()
