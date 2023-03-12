@@ -17,7 +17,7 @@ public class WeatherData : ISubject
     {
         foreach (var observer in _observers)
         {
-            observer.update(_temperature, _humidity, _pressure);
+            observer.update();
         }
     }
 
@@ -39,5 +39,20 @@ public class WeatherData : ISubject
         _humidity = humidity;
         _pressure = pressure;
         measurementsChanged();
+    }
+
+    internal float getTemperature()
+    {
+        return _temperature;
+    }
+
+    internal float getHumidity()
+    {
+        return _humidity;
+    }
+
+    internal float getPressure()
+    {
+        return _pressure;
     }
 }
