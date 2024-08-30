@@ -7,9 +7,9 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "${workspaceFolder}/HeadFirstDesignPatterns.sln",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -19,9 +19,9 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "${workspaceFolder}/HeadFirstDesignPatterns.sln",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj"
+                "${workspaceFolder}/HeadFirstDesignPatterns.sln"
             ],
             "problemMatcher": "$msCompile"
         }
