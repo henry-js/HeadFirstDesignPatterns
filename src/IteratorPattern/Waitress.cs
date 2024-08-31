@@ -15,11 +15,11 @@ public class Waitress
     public void PrintMenu()
     {
         IEnumerable<MenuItem> breakfastItems = pancakeHouseMenu.GetMenuItems();
+        PrintMenu(breakfastItems);
 
         IEnumerable<MenuItem> lunchItems = dinerMenu.GetMenuItems();
-
-        PrintMenu(breakfastItems);
         PrintMenu(lunchItems);
+
 
         static void PrintMenu(IEnumerable<MenuItem> items)
         {
