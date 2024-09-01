@@ -1,8 +1,6 @@
-using System.Collections;
-
 namespace IteratorPattern;
 
-public class PancakeHouseMenu
+public class PancakeHouseMenu : IMenu
 {
     readonly List<MenuItem> menuItems = [];
     public PancakeHouseMenu()
@@ -31,8 +29,5 @@ public class PancakeHouseMenu
         menuItems.Add(menuItem);
     }
 
-    public List<MenuItem> GetMenuItems()
-    {
-        return [.. menuItems];
-    }
+    public IEnumerator<MenuItem> GetEnumerator() => menuItems.GetEnumerator();
 }

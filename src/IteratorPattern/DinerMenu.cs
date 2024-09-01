@@ -1,6 +1,9 @@
+using System.Collections;
+using System.ComponentModel;
+
 namespace IteratorPattern;
 
-public class DinerMenu
+public class DinerMenu : IMenu
 {
     const int MAX_ITEMS = 4;
     readonly MenuItem[] menuItems;
@@ -30,9 +33,55 @@ public class DinerMenu
         }
     }
 
-    public IEnumerable<MenuItem> GetMenuItems()
-    {
-        return menuItems;
-    }
+    public IEnumerator<MenuItem> GetEnumerator() => new DinerMenuIterator(menuItems);
+
     // other menu methods here
+
+    internal class DinerMenuIterator : IEnumerator<MenuItem>
+    {
+        readonly MenuItem[] _items;
+        int _position = -1;
+
+        public DinerMenuIterator(MenuItem[] items)
+        {
+            _items = items;
+        }
+
+        public MenuItem Current => _items[_position] ?? throw new InvalidOperationException();
+        object IEnumerator.Current => Current;
+
+        public bool MoveNext()
+        {
+            _position++;
+            return _position++ < _items.Length;
+        }
+
+        public void Reset() => _position = -1;
+
+        public void Dispose() { }
+    }
+}
+
+public class CafeMenu : IMenu
+{
+    Dictionary<string, MenuItem> items = [];
+
+    public CafeMenu()
+    {
+        AddItem("Veggie Burger and Air Fries", "Veggie burger on a whole wheat bun, lettuce, tomato, and fries", true, 3.99);
+        AddItem("Soup of the day", "A cup of the soup of the day, with a side salad", false, 3.69);
+        AddItem("Burrito", "A large burrito, with whole pinto beans, salsa, guacamole", true, 4.29);
+    }
+
+    public void AddItem(string name, string description, bool vegetarian, double price)
+    {
+        MenuItem item = new(name, description, vegetarian, price);
+        items.Add(name, item);
+    }
+
+    public IEnumerator<MenuItem> GetEnumerator() => items.Values.GetEnumerator();
+}
+public interface IMenu
+{
+    IEnumerator<MenuItem> GetEnumerator();
 }

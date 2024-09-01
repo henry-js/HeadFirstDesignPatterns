@@ -4,29 +4,28 @@ namespace IteratorPattern;
 
 public class Waitress
 {
-    private readonly PancakeHouseMenu pancakeHouseMenu;
-    private readonly DinerMenu dinerMenu;
+    private readonly IEnumerable<IMenu> menus;
 
-    public Waitress(PancakeHouseMenu pancakeHouseMenu, DinerMenu dinerMenu)
+    public Waitress(params IMenu[] menus)
     {
-        this.pancakeHouseMenu = pancakeHouseMenu;
-        this.dinerMenu = dinerMenu;
+
+        this.menus = menus;
     }
     public void PrintMenu()
     {
-        IEnumerable<MenuItem> breakfastItems = pancakeHouseMenu.GetMenuItems();
-        PrintMenu(breakfastItems);
-
-        IEnumerable<MenuItem> lunchItems = dinerMenu.GetMenuItems();
-        PrintMenu(lunchItems);
-
-
-        static void PrintMenu(IEnumerable<MenuItem> items)
+        var menuIterator = menus.GetEnumerator();
+        while (menuIterator.MoveNext())
         {
-            foreach (var menuItem in items)
+            PrintMenu(menuIterator.Current.GetEnumerator());
+        }
+
+        static void PrintMenu(IEnumerator<MenuItem> iterator)
+        {
+            while (iterator.MoveNext())
             {
-                Console.Write(menuItem.Name);
-                Console.WriteLine(menuItem.Price);
+                MenuItem menuItem = iterator.Current;
+                Console.Write(menuItem.Name + ", £");
+                Console.Write(menuItem.Price + " -- ");
                 Console.WriteLine(menuItem.Description);
             }
         }
